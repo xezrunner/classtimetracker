@@ -86,9 +86,9 @@ struct StudyClassInfoSheetView: View {
 struct StudyClassListView_Previews: PreviewProvider {
     static var previews: some View {
         StudyClassListView(classes: [
-            StudyClass(name: "test1"),
-            StudyClass(name: "test2"),
-            StudyClass(name: "test3"),
+            StudyClass("test1"),
+            StudyClass("test2"),
+            StudyClass("test3"),
         ])
     }
 }

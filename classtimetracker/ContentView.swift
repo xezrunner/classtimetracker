@@ -8,15 +8,11 @@
 import SwiftUI
 import ActivityKit
 
-public var classes = [
-    StudyClass(name: "Test study class #1"),
-    StudyClass(name: "Test study class #2"),
-    StudyClass(name: "Test study class #3")
-]
-
 struct ContentView: View {
     @State var showInfo  = false
     @State var infoTarget : StudyClass? = nil
+    
+    @AppStorage("classes") var classes: Data = Data()
     
     @ScaledMetric var header_icon_width : CGFloat = 20
     @ScaledMetric var header_icon_height: CGFloat = 20
@@ -44,7 +40,7 @@ struct ContentView: View {
             .padding(20)
             
             // TODO: separate either the list or the content into a custom View:
-            StudyClassListView(classes: classes, infoTarget: infoTarget, showInfo: showInfo)
+            StudyClassListView(classes: StudyClass.decodeClassesFromData(classes), infoTarget: infoTarget, showInfo: showInfo)
             
             Button(action: endAllLiveActivities) {
                 HStack {
