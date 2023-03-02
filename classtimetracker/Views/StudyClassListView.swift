@@ -22,36 +22,41 @@ struct StudyClassListView: View {
     }
     
     var body: some View {
-        List(classes) { c in
-            HStack {
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("Class: ").foregroundColor(Color(UIColor.secondaryLabel))
-                        Text(c.name).scaledToFit()
+        List() {
+            ForEach(Array(classes.enumerated()), id: \.offset) { index, element in
+                HStack {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Class: ").foregroundColor(Color(UIColor.secondaryLabel))
+                            Text(element.name).scaledToFit()
+                        }
+                        HStack {
+                            Text("Duration: ").foregroundColor(Color(UIColor.secondaryLabel))
+                            Text(element.duration.formatted())
+                        }
                     }
-                    HStack {
-                        Text("Duration: ").foregroundColor(Color(UIColor.secondaryLabel))
-                        Text(c.duration.formatted())
-                    }
+                    
+                    Spacer()
+                    
+                    Button(action: showStudyClassInfo(element),  label: {
+                        Image(systemName: "info.circle")
+                    })
+                    .buttonStyle(.bordered)
+                    .sheet(isPresented: $showInfo) {
+                    } content: {
+                        StudyClassInfoSheetView(info: $infoTarget)
+                    } .onDisappear(perform: {showInfo = false})
+                    
+                    Button(action: startLiveActivity(element),  label: {
+                        Image(systemName: "play.circle")
+                    })
+                    .buttonStyle(.bordered)
+                }.swipeActions {
+                    Button(role: .destructive) {
+                        classes.remove(at: index)
+                        print(classes)
+                    } label: { Image(systemName: "trash") }
                 }
-                
-                Spacer()
-                
-                Button(action: showStudyClassInfo(c),  label: {
-                    Image(systemName: "info.circle")
-                })
-                .buttonStyle(.bordered)
-                .sheet(isPresented: $showInfo) {
-                } content: {
-                    StudyClassInfoSheetView(info: $infoTarget)
-                } .onDisappear(perform: {showInfo = false})
-                
-                Button(action: startLiveActivity(c),  label: {
-                    Image(systemName: "play.circle")
-                })
-                .buttonStyle(.bordered)
-            }.swipeActions {
-                Button(role: .destructive) { } label: { Image(systemName: "trash") }
             }
         }
     }
@@ -80,6 +85,10 @@ struct StudyClassInfoSheetView: View {
 
 struct StudyClassListView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyClassListView(classes: [])
+        StudyClassListView(classes: [
+            StudyClass(name: "test1"),
+            StudyClass(name: "test2"),
+            StudyClass(name: "test3"),
+        ])
     }
 }

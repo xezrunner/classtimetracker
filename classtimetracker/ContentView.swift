@@ -18,8 +18,6 @@ struct ContentView: View {
     @State var showInfo  = false
     @State var infoTarget : StudyClass? = nil
     
-    
-    
     @ScaledMetric var header_icon_width : CGFloat = 20
     @ScaledMetric var header_icon_height: CGFloat = 20
     
