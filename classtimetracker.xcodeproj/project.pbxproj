@@ -19,6 +19,8 @@
 		2188046829B0CB6500A7BB88 /* StudyClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2188046729B0CB6500A7BB88 /* StudyClass.swift */; };
 		2188046A29B0CC0600A7BB88 /* LiveActivityUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2188046929B0CC0600A7BB88 /* LiveActivityUtils.swift */; };
 		2188046D29B0CCFE00A7BB88 /* StudyClassListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2188046C29B0CCFE00A7BB88 /* StudyClassListView.swift */; };
+		2188047429B0E1EA00A7BB88 /* AddStudyClassSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2188047329B0E1EA00A7BB88 /* AddStudyClassSheet.swift */; };
+		2188047729B0F9EE00A7BB88 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2188047629B0F9EE00A7BB88 /* StringExtensions.swift */; };
 		21C5C34E29AD190B00EDFBCE /* classtimetrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C5C34D29AD190B00EDFBCE /* classtimetrackerApp.swift */; };
 		21C5C35029AD190B00EDFBCE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C5C34F29AD190B00EDFBCE /* ContentView.swift */; };
 		21C5C35229AD190C00EDFBCE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21C5C35129AD190C00EDFBCE /* Assets.xcassets */; };
@@ -62,6 +64,8 @@
 		2188046729B0CB6500A7BB88 /* StudyClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyClass.swift; sourceTree = "<group>"; };
 		2188046929B0CC0600A7BB88 /* LiveActivityUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityUtils.swift; sourceTree = "<group>"; };
 		2188046C29B0CCFE00A7BB88 /* StudyClassListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyClassListView.swift; sourceTree = "<group>"; };
+		2188047329B0E1EA00A7BB88 /* AddStudyClassSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudyClassSheet.swift; sourceTree = "<group>"; };
+		2188047629B0F9EE00A7BB88 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		21C5C34A29AD190B00EDFBCE /* classtimetracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = classtimetracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21C5C34D29AD190B00EDFBCE /* classtimetrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classtimetrackerApp.swift; sourceTree = "<group>"; };
 		21C5C34F29AD190B00EDFBCE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -114,8 +118,17 @@
 			isa = PBXGroup;
 			children = (
 				2188046C29B0CCFE00A7BB88 /* StudyClassListView.swift */,
+				2188047329B0E1EA00A7BB88 /* AddStudyClassSheet.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		2188047529B0F9E400A7BB88 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2188047629B0F9EE00A7BB88 /* StringExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		21C5C34129AD190B00EDFBCE = {
@@ -140,9 +153,10 @@
 		21C5C34C29AD190B00EDFBCE /* classtimetracker */ = {
 			isa = PBXGroup;
 			children = (
-				2188046B29B0CCE000A7BB88 /* Views */,
+				2188047529B0F9E400A7BB88 /* Extensions */,
 				21C5C34D29AD190B00EDFBCE /* classtimetrackerApp.swift */,
 				21C5C34F29AD190B00EDFBCE /* ContentView.swift */,
+				2188046B29B0CCE000A7BB88 /* Views */,
 				216B279029AD58AC0079CDD3 /* StudyClassAttributes.swift */,
 				2188046729B0CB6500A7BB88 /* StudyClass.swift */,
 				2188046929B0CC0600A7BB88 /* LiveActivityUtils.swift */,
@@ -272,12 +286,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2188047729B0F9EE00A7BB88 /* StringExtensions.swift in Sources */,
 				21C5C35029AD190B00EDFBCE /* ContentView.swift in Sources */,
 				21C5C34E29AD190B00EDFBCE /* classtimetrackerApp.swift in Sources */,
 				2188046A29B0CC0600A7BB88 /* LiveActivityUtils.swift in Sources */,
 				2188046829B0CB6500A7BB88 /* StudyClass.swift in Sources */,
 				216B279129AD58AC0079CDD3 /* StudyClassAttributes.swift in Sources */,
 				2188046D29B0CCFE00A7BB88 /* StudyClassListView.swift in Sources */,
+				2188047429B0E1EA00A7BB88 /* AddStudyClassSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct StudyClassListView: View {
-    @State var classes: [StudyClass]
+    @ObservedObject var viewModel = StudyClassViewModel()
+    
     @State var infoTarget: StudyClass? = nil
     @State var showInfo = false
     
@@ -23,8 +24,10 @@ struct StudyClassListView: View {
     
     var body: some View {
         List() {
-            ForEach(Array(classes.enumerated()), id: \.offset) { index, element in
+            ForEach(Array(viewModel.classes.enumerated()), id: \.offset) { index, element in
                 HStack {
+                    Image(systemName: element.icon).padding([.trailing], 8).foregroundColor(element.color.toColor())
+                    
                     VStack(alignment: .leading) {
                         HStack {
                             Text("Class: ").foregroundColor(Color(UIColor.secondaryLabel))
@@ -38,23 +41,24 @@ struct StudyClassListView: View {
                     
                     Spacer()
                     
-                    Button(action: showStudyClassInfo(element),  label: {
-                        Image(systemName: "info.circle")
-                    })
-                    .buttonStyle(.bordered)
-                    .sheet(isPresented: $showInfo) {
-                    } content: {
-                        StudyClassInfoSheetView(info: $infoTarget)
-                    } .onDisappear(perform: {showInfo = false})
-                    
-                    Button(action: startLiveActivity(element),  label: {
-                        Image(systemName: "play.circle")
-                    })
-                    .buttonStyle(.bordered)
+                    HStack {
+                        Button(action: showStudyClassInfo(element),  label: {
+                            Image(systemName: "info.circle")
+                        })
+                        .buttonStyle(.bordered)
+                        .sheet(isPresented: $showInfo) {
+                        } content: {
+                            StudyClassInfoSheetView(info: $infoTarget)
+                        } .onDisappear(perform: {showInfo = false})
+                        
+                        Button(action: startLiveActivity(element),  label: {
+                            Image(systemName: "play.circle")
+                        })
+                        .buttonStyle(.bordered)
+                    }.foregroundColor(element.color.toColor())
                 }.swipeActions {
                     Button(role: .destructive) {
-                        classes.remove(at: index)
-                        print(classes)
+                        viewModel.removeStudyClassAt(index)
                     } label: { Image(systemName: "trash") }
                 }
             }
@@ -85,10 +89,6 @@ struct StudyClassInfoSheetView: View {
 
 struct StudyClassListView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyClassListView(classes: [
-            StudyClass("test1"),
-            StudyClass("test2"),
-            StudyClass("test3"),
-        ])
+        StudyClassListView(viewModel: StudyClassViewModel(testClasses: StudyClass.defaultClasses))
     }
 }

@@ -9,10 +9,11 @@ import SwiftUI
 import ActivityKit
 
 struct ContentView: View {
+    @State var showAddStudyClassSheet = false
     @State var showInfo  = false
     @State var infoTarget : StudyClass? = nil
     
-    @AppStorage("classes") var classes: Data = Data()
+    @ObservedObject var viewModel = StudyClassViewModel()
     
     @ScaledMetric var header_icon_width : CGFloat = 20
     @ScaledMetric var header_icon_height: CGFloat = 20
@@ -31,27 +32,58 @@ struct ContentView: View {
                 }
                 .buttonStyle(.bordered)
                 
-                Button() { } label: {
+                Button() { showAddStudyClassSheet = true } label: {
                     Image(systemName: "plus.circle").frame(width: header_icon_width, height: header_icon_height)
                 }
                 .buttonStyle(.bordered)
+                .sheet(isPresented: $showAddStudyClassSheet, onDismiss: {
+                    showAddStudyClassSheet = false
+                }) { AddStudyClassSheet(viewModel: viewModel, isSheetOpen: $showAddStudyClassSheet) }
             }
             .background(Color(UIColor.systemBackground))
             .padding(20)
             
             // TODO: separate either the list or the content into a custom View:
-            StudyClassListView(classes: StudyClass.decodeClassesFromData(classes), infoTarget: infoTarget, showInfo: showInfo)
+            StudyClassListView(viewModel: viewModel, infoTarget: infoTarget, showInfo: showInfo)
             
-            Button(action: endAllLiveActivities) {
-                HStack {
-                    Image(systemName: "stop.circle")
-                    Text("Cancel all live activities")
-                }
+            HStack {
+                Text("[debug]").foregroundColor(Color(UIColor.tertiaryLabel))
+                Spacer()
+            }.padding([.leading, .trailing])
+            
+            ScrollView (.horizontal) {
+                HStack() {
+                    Button(action: endAllLiveActivities) {
+                        HStack {
+                            Image(systemName: "xmark.circle")
+                            Text("Cancel all live activities")
+                        }
+                    }.tint(Color(UIColor.systemOrange))
+                    
+                    Button() {
+                        viewModel.classes.removeAll()
+                        viewModel.encodeAndSave()
+                    } label: {
+                        HStack {
+                            Image(systemName: "trash.circle")
+                            Text("Remove all study classes")
+                        }
+                    }.tint(Color(UIColor.systemRed))
+                    
+                    Button() {
+                        viewModel.classes = StudyClass.defaultClasses;
+                        viewModel.encodeAndSave()
+                    } label: {
+                        HStack {
+                            Image(systemName: "plus.circle")
+                            Text("Add test study classes")
+                        }
+                    }.tint(Color(UIColor.systemGreen))
+                    
+                }.buttonStyle(.bordered)
+            }.padding()
+            
             }
-            .buttonStyle(.bordered)
-            .tint(Color(UIColor.systemOrange))
-            .padding()
-        }
     }
     
     struct ContentView_Previews: PreviewProvider {
